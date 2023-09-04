@@ -10,4 +10,4 @@ Date: 17 August 2023
 This is to test and check if it is possible and works. Currently it measures temperature and the voltage measuring is in the works, it sends the information using bluetooth, every 5 seconds, to a "terminal" on your phone.
 
 Date: 4 September 2023
-During the week before the 28th August 2023 I got the voltage measuring to work, I however encountered a problem the ADC pins on a ESP32 are not good and not accurate, it display non-linear patterns, thus I was forced to using Math in the software to fix it 
+During the week before the 28th August 2023 I got the voltage measuring to work, I however encountered a problem the ADC pins on a ESP32 are not good and not accurate, it display non-linear patterns, thus I was forced to using Math in the software to fix it. I also changed the display time to every 3 seconds
