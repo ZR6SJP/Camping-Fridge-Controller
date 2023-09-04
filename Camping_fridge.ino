@@ -15,7 +15,11 @@ BluetoothSerial SerialBT;
 
 
 // GPIO where the DS18B20 is connected to
-const int TempPin =  2;
+const int TempPin =  4;
+const int Analog_channel_pin=15;
+float ADC_VALUE = 0;
+float voltage_value = 0;
+float voltage_value_BT = 0; 
 
 OneWire onewire (TempPin);
 
@@ -32,7 +36,7 @@ void setup() {
   Serial.begin(115200);
   sensors.begin();
   // Bluetooth device name
-  SerialBT.begin("ESP32");
+  SerialBT.begin("ESP32_dad_2");
   Serial.println("The device started, now you can pair it with bluetooth!");
 }
 
@@ -40,22 +44,17 @@ void loop() {
   unsigned long currentMillis = millis();
         sensors.requestTemperatures();
   float temperature = sensors.getTempCByIndex(0);
+ 
   SerialBT.print(temperature);
   SerialBT.println("ºC");
+  ADC_VALUE = analogRead(Analog_channel_pin);
+  voltage_value = (ADC_VALUE/4096 * 26.5);
+  voltage_value_BT = voltage_value + 0.8;
+  SerialBT.print(voltage_value_BT);
+  Serial.println(voltage_value);
+  SerialBT.println("v");
 
   
-  // Read received messages (LED control command)
-  if (SerialBT.available()){
-    char incomingChar = SerialBT.read();
-    if (incomingChar != '\n'){
-      message += String(incomingChar);
-    }
-    else{
-      message = "";
-    }
-    Serial.write(incomingChar);  
-  }
-  // Check received message and control output accordingly
   
-  delay(5000);
+  delay(3000);
 }
